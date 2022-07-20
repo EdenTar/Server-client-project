@@ -1,0 +1,21 @@
+package bgu.spl.net.impl.BGSServer;
+
+import bgu.spl.net.api.bidi.BidiMessagingProtocolImpl;
+import bgu.spl.net.impl.echo.LineMessageEncoderDecoder;
+import bgu.spl.net.impl.newsfeed.NewsFeed;
+import bgu.spl.net.impl.rci.ObjectEncoderDecoder;
+import bgu.spl.net.srv.Server;
+
+public class ReactorMain {
+    public static void main(String[] args) {
+        //you can use any server...
+        Server.reactor(
+                Runtime.getRuntime().availableProcessors(),
+                7777, //port
+                () ->  new BidiMessagingProtocolImpl(), //protocol factory
+                LineMessageEncoderDecoder::new //message encoder decoder factory
+        ).serve();
+
+    }
+}
+
